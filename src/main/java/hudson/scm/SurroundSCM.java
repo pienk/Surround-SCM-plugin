@@ -56,6 +56,7 @@ public final class SurroundSCM extends SCM {
   private String serverPort;
   private String branch;
   private String repository;
+  private String folder;
   private String credentialsId;
   private RSAKey rsaKey;
 
@@ -101,7 +102,7 @@ public final class SurroundSCM extends SCM {
 
   @SuppressWarnings("deprecation")
   @DataBoundConstructor
-  public SurroundSCM(String server, String serverPort, String branch, String repository, String credentialsId) {
+  public SurroundSCM(String server, String serverPort, String branch, String repository, String folder, String credentialsId) {
     this.rsaKeyPath = null;
     this.rsaKey = null;
 
@@ -109,6 +110,7 @@ public final class SurroundSCM extends SCM {
     this.serverPort = Util.fixEmptyAndTrim(serverPort);
     this.branch = Util.fixEmptyAndTrim(branch);
     this.repository = Util.fixEmptyAndTrim(repository);
+    this.folder = Util.fixEmptyAndTrim(folder);
     this.credentialsId = Util.fixEmptyAndTrim(credentialsId);
 
     this.bIncludeOutput = true; // Leaving this here for future functionality.
@@ -126,9 +128,9 @@ public final class SurroundSCM extends SCM {
    */
   @SuppressWarnings({"WeakerAccess", "deprecation"}) // Legacy constructor, can't make it private
   public SurroundSCM(String rsaKeyPath, String server, String serverPort, String userName,
-                     String password, String branch, String repository, String surroundSCMExecutable,
+                     String password, String branch, String repository, String folder, String surroundSCMExecutable,
                      boolean includeOutput) {
-    this(server, serverPort, branch, repository, null);
+    this(server, serverPort, branch, repository, folder, null);
     this.rsaKey = new RSAKey(RSAKey.Type.Path, rsaKeyPath);
     this.userName = Util.fixEmptyAndTrim(userName);
     this.password = Util.fixEmptyAndTrim(password);
@@ -141,8 +143,8 @@ public final class SurroundSCM extends SCM {
    */
   @SuppressWarnings({"deprecation", "unused"})
   public SurroundSCM(String rsaKeyPath, String server, String serverPort, String userName,
-                     String password, String branch, String repository, String surroundSCMExecutable) {
-    this(rsaKeyPath, server, serverPort, userName, password, branch, repository, surroundSCMExecutable, true);
+                     String password, String branch, String repository, String folder, String surroundSCMExecutable) {
+    this(rsaKeyPath, server, serverPort, userName, password, branch, repository, folder, surroundSCMExecutable, true);
   }
 
   @SuppressWarnings("unused")
@@ -418,7 +420,7 @@ public final class SurroundSCM extends SCM {
     cmd.add("-wreplace");
     cmd.add("-b".concat(branch));
     cmd.add("-p".concat(repository));
-    cmd.add("-d".concat(workspace.getRemote()));
+    cmd.add("-d".concat(workspace.getRemote()) + "/" + folder);
     cmd.add("-r");
     cmd.add("-s" + scm_datetime_formatter.format(currentDate));
     if (!bIncludeOutput) {

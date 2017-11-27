@@ -64,7 +64,7 @@ public class SurroundStep extends SCMStep {
     String branch = SSCMUtils.getBranchFromURL(url);
     String repository = SSCMUtils.getRepositoryFromURL(url);
 
-    SurroundSCM sscm = new SurroundSCM(server, port, branch, repository, credentialsId);
+    SurroundSCM sscm = new SurroundSCM(server, port, branch, repository, null, credentialsId);
     sscm.setRsaKey(rsaKey);
     return sscm;
   }

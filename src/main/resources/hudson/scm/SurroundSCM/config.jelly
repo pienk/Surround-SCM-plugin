@@ -22,6 +22,9 @@
    <f:entry title="Repository" field="repository">
       <f:textbox />
    </f:entry>
+   <f:entry title="Sub Folder" field="folder">
+      <f:textbox />
+   </f:entry>
    <f:entry title="${%Credentials}" field="credentialsId">
       <c:select />
    </f:entry>
