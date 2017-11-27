@@ -110,7 +110,7 @@ public final class SurroundSCM extends SCM {
     this.serverPort = Util.fixEmptyAndTrim(serverPort);
     this.branch = Util.fixEmptyAndTrim(branch);
     this.repository = Util.fixEmptyAndTrim(repository);
-    this.folder = Util.fixEmptyAndTrim(folder);
+    this.folder = folder;
     this.credentialsId = Util.fixEmptyAndTrim(credentialsId);
 
     this.bIncludeOutput = true; // Leaving this here for future functionality.
@@ -229,6 +229,11 @@ public final class SurroundSCM extends SCM {
   @Exported
   public String getRepository() {
     return repository;
+  }
+
+  @Exported
+  public String getFolder() {
+    return folder;
   }
 
   @Exported
